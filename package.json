@@ -11,6 +11,7 @@
     "build:web-production": "./node_modules/.bin/webpack -p --config ./web/webpack.config.js"
   },
   "dependencies": {
+    "@noriginmedia/react-spatial-navigation": "^2.12.6",
     "react": "16.6.3",
     "react-dom": "^16.8.1",
     "react-native": "0.58.4",
