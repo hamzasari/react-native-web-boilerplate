@@ -7,12 +7,20 @@
  * @lint-ignore-every XPLATJSCOPYRIGHT1
  */
 
-import React, { Component } from "react";
+import React, {Component, useEffect} from "react";
 import { Platform, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { initNavigation, withFocusable } from '@noriginmedia/react-spatial-navigation';
+import { initNavigation, setKeyMap, withFocusable } from '@noriginmedia/react-spatial-navigation';
 
 initNavigation({
   nativeMode: true,
+});
+
+setKeyMap({
+  'left': 37,
+  'up': 38,
+  'right': 39,
+  'down': 40,
+  'enter': 13
 });
 
 const instructions = Platform.select({
@@ -29,17 +37,23 @@ const Box = ({ focused, setFocus }) => {
 
 const FocusableBox = withFocusable()(Box);
 
-export default class App extends Component {
-  render() {
-    return (
+const Spatial = ({setFocus}) => {
+  setFocus('first');
+  return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native for Web!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
-        <FocusableBox />
+        <FocusableBox focusKey={`first`} />
         <FocusableBox />
         <FocusableBox />
       </View>
+  );
+};
+
+const FocusableSpatial = withFocusable()(Spatial);
+
+export default class App extends Component {
+  render() {
+    return (
+      <FocusableSpatial />
     );
   }
 }
